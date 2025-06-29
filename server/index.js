@@ -5,10 +5,10 @@ app.use(express.json())
 require("dotenv").config()
 PORT = process.env.PORT || 2026
 const cors = require("cors")
-connection()
+
 app.use(cors({
     // origin: "http://localhost:5173",
-    origin: "https://event-pilot-client-theta.vercel.app", 
+    origin: "https://event-pilot-client-theta.vercel.app",
     credentials: true
 }))
 
@@ -24,6 +24,13 @@ app.get("/", (req, res) => {
         message: "EventPilot server is running successfully."
     })
 })
-app.listen(PORT, () => {
-    console.log("EventPilot server is running on port:", PORT);
-})
+
+connection()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`🚀 EventPilot server is running on port: ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error("❌ Failed to start server due to DB connection error:", err);
+    });
