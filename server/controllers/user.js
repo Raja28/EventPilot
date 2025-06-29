@@ -85,28 +85,6 @@ exports.delete = async (req, res) => {
     }
 }
 
-// exports.events = async (req, res) => {
-//     //fetch all events
-//     try {
-//         const { _id } = req.user
-
-//         const events = await Event.find()
-//             .populate("creator", "name email")
-
-//         return res.status(200).json({
-//             success: true,
-//             message: "Events fetched successfully",
-//             events
-//         })
-//     } catch (error) {
-//         console.log("Error fetching events:", error);
-//         return res.status(500).json({
-//             success: false,
-//             message: "Internal server error"
-//         })
-//     }
-// }
-
 
 exports.events = async (req, res) => {
     try {
@@ -172,7 +150,7 @@ exports.participateInEvent = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Successfully joined the event',
-            eventId,
+            event,
         });
 
     } catch (error) {
@@ -185,7 +163,15 @@ exports.getUserJoinedEvents = async (req, res) => {
     try {
         const userId = req.user._id;
 
-        const user = await User.findById(userId).populate("eventsJoined");
+        const user = await User.findById(userId)
+            .populate({
+                path: "eventsJoined",
+                populate: {
+                    path: "creator",
+                    select: "name",
+                }
+            });
+
 
         return res.status(200).json({
             success: true,
