@@ -9,14 +9,18 @@ Visit the website: [EventPilot](https://event-pilot-client-theta.vercel.app/)
 
 ## 🔑 Demo Login Credentials
 
-- **Email:** rajadavid03@gmail.com  
-- **Password:** 1234
+| email | Password |
+|------------|-------------|
+| rajadavid03@gmail.com | 1234 |
+| saravana@gmail.com | 1234 |
+
 
 ## 🚀 Tech Stack
 
 | Technology | Description |
 |------------|-------------|
 | **Frontend** | React.js with Tailwind CSS |
+| **State management** | Redux Toolkit |
 | **Backend** | Node.js, Express.js |
 | **Database** | MongoDB |
 | **Authentication** | JWT-based authentication |
@@ -27,12 +31,16 @@ Visit the website: [EventPilot](https://event-pilot-client-theta.vercel.app/)
 
 ### 👤 User Authentication
 - ✅ Register and login using JWT tokens
-- ✅ Secure protected routes
+- ✅ Secure protected routes using middleware
+- ✅ Bcrypt to store the password in securely
+- ✅ Protected routes on client side to enhance security
 
 ### 🗓️ Event Management
 - ✅ Create new events with title, description, date, and location
 - ✅ View a list of all upcoming events
 - ✅ Register as an attendee for any event
+- ✅ View all your events including upcomming and previous events.
+- ✅ Keep track of your created events
 
 ---
 
