@@ -8,6 +8,7 @@ import { IoIosList } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
+import { clearSlice } from "../store/userSlice";
 
 export default function Dashboard() {
     const { user } = useSelector(state => state.user)
