@@ -7,6 +7,7 @@ exports.connection = async (req, res) => {
         if (resp) {
             console.log("EventPilot DB connected successfully");
         }
+        return resp;
     } catch (error) {
         console.log("Error connecting EngineerFlow DB :", error);
     }
