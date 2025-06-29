@@ -61,7 +61,7 @@ export const registerInEvent = createAsyncThunk('user/registerInEvent', async (e
             },
             withCredentials: true
         })
-        return response?.data?.eventId
+        return response?.data?.event
     } catch (error) {
         const message = error?.response?.data?.message
         return rejectWithValue(message)
@@ -69,9 +69,9 @@ export const registerInEvent = createAsyncThunk('user/registerInEvent', async (e
 })
 
 const initialState = {
-    user: JSON.parse(sessionStorage.getItem('user')) || {},
-    eventsCreated: JSON.parse(sessionStorage.getItem('eventsCreated')) || [],
-    eventsJoined: JSON.parse(sessionStorage.getItem('eventsJoined')) || [],
+    user: sessionStorage.getItem('user') !== 'undefined' ? JSON.parse(sessionStorage.getItem('user')) : {},
+    eventsCreated: sessionStorage.getItem('eventsCreated') !== 'undefined' ? JSON.parse(sessionStorage.getItem('eventsCreated')) : [],
+    eventsJoined: sessionStorage.getItem('eventsJoined') !== 'undefined' ? JSON.parse(sessionStorage.getItem('eventsJoined')) : [],
     token: sessionStorage.getItem('token') || null,
     status: 'idle',
     error: null
@@ -103,12 +103,12 @@ const userSlice = createSlice({
             })
             .addCase(userSignup.fulfilled, (state, { payload }) => {
                 state.user = payload?.user
-                state.token = payload.token
-                state.eventsCreated = payload?.user?.eventsCreated
-                state.eventsJoined = payload?.user?.eventsJoined
+                state.token = payload?.token
+                // state.eventsCreated = payload?.user?.eventsCreated
+                // state.eventsJoined = payload?.user?.eventsJoined
                 sessionStorage.setItem('user', JSON.stringify(payload?.user))
-                sessionStorage.setItem('eventsCreated', JSON.stringify(payload?.user?.eventsCreated))
-                sessionStorage.setItem('eventsJoined', JSON.stringify(payload?.user?.eventsJoined))
+                // sessionStorage.setItem('eventsCreated', JSON.stringify(payload?.user?.eventsCreated))
+                // sessionStorage.setItem('eventsJoined', JSON.stringify(payload?.user?.eventsJoined))
                 sessionStorage.setItem('token', payload.token)
                 state.status = 'success'
             })
@@ -168,11 +168,9 @@ const userSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(registerInEvent.fulfilled, (state, { payload }) => {
-                console.log(payload);
-                
+                state.status = 'success'
                 state.eventsJoined = [...state.eventsJoined, payload]
                 sessionStorage.setItem('eventsJoined', JSON.stringify(state.eventsJoined))
-                state.status = 'success'
             })
             .addCase(registerInEvent.rejected, (state, { payload }) => {
                 state.status = 'error'
@@ -181,5 +179,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setUser, setStatus } = userSlice.actions
+export const { setUser, setStatus, clearSlice } = userSlice.actions
 export default userSlice.reducer
