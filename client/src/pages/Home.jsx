@@ -121,7 +121,7 @@ export default function Home() {
 
                                 {/* Register Button */}
                                 <button
-                                    className={`mt-4 inline-block text-white px-4 py-2 rounded transition ${eventsJoined?.includes(event._id) || registeredEventId === event._id || event.participants.includes(user._id) ? "bg-green-500 " : "bg-blue-500 hover:bg-blue-700"} `}
+                                    className={`mt-4 inline-block text-white px-4 py-2 rounded transition ${eventsJoined?.includes(event._id) ? "bg-green-500 " : "bg-blue-500 hover:bg-blue-700"} `}
                                     onClick={() => setRegisteredEventId(event._id)}
                                     disabled={event.participants.includes(user._id) || status === "loading"}
                                 >
