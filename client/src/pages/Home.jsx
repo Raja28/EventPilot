@@ -43,6 +43,7 @@ export default function Home() {
         try {
             const response = await dispatch(registerInEvent(eventId)).unwrap()
             if (response?.success) {
+                setRegisteredEventId(null)
                 toast.success(response?.message)
             }
         } catch (error) {
@@ -121,11 +122,11 @@ export default function Home() {
 
                                 {/* Register Button */}
                                 <button
-                                    className={`mt-4 inline-block text-white px-4 py-2 rounded transition ${eventsJoined?.includes(event._id) ? "bg-green-500 " : "bg-blue-500 hover:bg-blue-700"} `}
+                                    className={`mt-4 inline-block text-white px-4 py-2 rounded transition ${eventsJoined?.find(data => data._id === event._id) ? "bg-green-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700 cursor-pointer"} `}
                                     onClick={() => setRegisteredEventId(event._id)}
-                                    disabled={event.participants.includes(user._id) || status === "loading"}
+                                    disabled={status === "loading"}
                                 >
-                                    {eventsJoined?.includes(event._id) ? "Registered" : (status === "loading" && registeredEventId === event._id) ? "Registering..." : "Register"}
+                                    { eventsJoined?.find(data => data._id === event._id) ? "Registered" : (status === "loading" && registeredEventId === event._id) ? "Registering..." : "Register"}
                                 </button>
                             </div>
                         );
