@@ -42,9 +42,9 @@ export default function Home() {
     async function handleJoinEvent(eventId) {
         try {
             const response = await dispatch(registerInEvent(eventId)).unwrap()
-            if (response?.success) {
+            if (response?._id) {
                 setRegisteredEventId(null)
-                toast.success(response?.message)
+                toast.success("Registration successful")
             }
         } catch (error) {
             console.log(error);
