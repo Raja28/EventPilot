@@ -10,10 +10,10 @@ app.use(cors({
     credentials: true
 }))
 
-connection()
 const { connection } = require("./config/database")
 const authRouter = require("./routes/auth")
 const userRouter = require("./routes/user")
+connection()
 
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
