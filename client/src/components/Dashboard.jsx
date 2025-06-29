@@ -79,7 +79,7 @@ export default function Dashboard() {
                             </Link>
 
                             <Link
-                                to=""
+                                to="/dashboard/event/created"
                                 className="w-32 border border-yellow-500 p-3 rounded-xl text-center text-gray-700 hover:bg-yellow-50 transition"
                             >
                                 <div className="flex flex-col text-sm mb-2">
