@@ -72,7 +72,9 @@ exports.login = async (req, res) => {
             });
         }
 
-        const registeredUser = await User.findOne({ email }).select("+password");
+        const registeredUser = await User.findOne({ email }).select("+password")
+            .populate("eventsJoined")
+            .populate("eventsCreated")
 
         if (!registeredUser) {
             return res.status(401).json({
