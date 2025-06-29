@@ -1,19 +1,4 @@
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getUserJoinedEvents } from "../store/userSlice";
 
-// export function UserJoinedEvents() {
-//     const {status, error, eventsJoined} = useSelector((state) => state.user)
-//     const dispatch = useDispatch()
-//     useEffect(()=>{
-//         dispatch(getUserJoinedEvents())
-//     },[])
-//     console.log(eventsJoined);
-
-//     return (
-//         <div>UserJoinedEvents</div>
-//     )
-// }
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserJoinedEvents } from "../store/userSlice";
@@ -27,10 +12,11 @@ export function UserJoinedEvents() {
   useEffect(() => {
     dispatch(getUserJoinedEvents());
   }, [dispatch]);
+  console.log(eventsJoined);
 
   return (
     <div className="w-11/12 mx-auto min-h-screen bg-gray-100 p-6">
-    
+
       <button
         onClick={() => navigate(-1)}
         className="mb-4 bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded"
@@ -60,7 +46,7 @@ export function UserJoinedEvents() {
       )}
 
       {/* Events Grid */}
-      {status === "succeeded" && eventsJoined.length > 0 && (
+      {status === "success" && eventsJoined.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {eventsJoined.map((event) => (
             <div
@@ -74,11 +60,11 @@ export function UserJoinedEvents() {
                 📅{" "}
                 {event.date
                   ? new Date(event.date).toLocaleDateString(undefined, {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
                   : "Date not specified"}
               </p>
               <p className="text-gray-700 mb-2">
