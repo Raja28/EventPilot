@@ -7,7 +7,7 @@ import { useEffect } from "react"
 
 export default function Event() {
     const [eventData, setEvent] = useState({ title: "", date: "", location: "", description: "" })
-    const { eventsCreated } = useSelector((state) => state.user)
+    const { eventsCreated, status } = useSelector((state) => state.user)
     const dispatch = useDispatch()
     const { eventId } = useParams()
 
@@ -124,9 +124,11 @@ export default function Event() {
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
                                         </Link>
                                         <button
-                                            className="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none cursor-pointer">
+                                            className="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none cursor-pointer"
+                                            disabled={status === "loading"}
+                                            >
 
-                                            {eventId ? "Update" : "Create"}
+                                            {status === "loading" ?  "Creating..." : "Create"}
                                         </button>
                                     </div>
                                 </div>
