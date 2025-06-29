@@ -5,8 +5,8 @@ require("dotenv").config()
 PORT = process.env.PORT || 2026
 const cors = require("cors")
 app.use(cors({
-    origin: "http://localhost:5173",
-    // origin: "https://event-pilot-client-theta.vercel.app", 
+    // origin: "http://localhost:5173",
+    origin: "https://event-pilot-client-theta.vercel.app", 
     credentials: true
 }))
 
