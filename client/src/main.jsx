@@ -14,6 +14,7 @@ import Dashboard from './components/Dashboard.jsx'
 import Event from './components/forms/Event.jsx'
 import { UserJoinedEvents } from './pages/UserJoinedEvents.jsx'
 import { USER_EVENT_JOINED_API } from './utils/api.js'
+import { CreatedEvents } from './pages/CreatedEvents.jsx'
 
 const router = createBrowserRouter([
   { path: "/", element: <OpenRoute><App /></OpenRoute> },
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/event/", element: <Event /> },
       { path: "/dashboard/event/:eventId", element: <Event /> },
       { path: "/dashboard/event/registered", element: <UserJoinedEvents /> },
+      { path: "/dashboard/event/created", element: <CreatedEvents /> },
     ]
   }
 ])
