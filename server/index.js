@@ -1,19 +1,19 @@
+const { connection } = require("./config/database")
 const express = require("express")
 const app = express()
 app.use(express.json())
 require("dotenv").config()
 PORT = process.env.PORT || 2026
 const cors = require("cors")
+connection()
 app.use(cors({
     // origin: "http://localhost:5173",
     origin: "https://event-pilot-client-theta.vercel.app", 
     credentials: true
 }))
 
-const { connection } = require("./config/database")
 const authRouter = require("./routes/auth")
 const userRouter = require("./routes/user")
-connection()
 
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
