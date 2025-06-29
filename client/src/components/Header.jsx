@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import logo from "../assets/eventPilot_logo.png"
+import logo from "../assets/logo.png"
 import { useSelector } from "react-redux"
 
 export default function Header() {
