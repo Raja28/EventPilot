@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { EVENT_API, LOGIN_API, SIGNUP_API, USER_EVENT_JOINED_API, USER_EVENT_REGISTRATION_API } from '../utils/api'
+import { EVENT_API, LOGIN_API, SIGNUP_API, USER_CREATED_EVENT_API, USER_EVENT_JOINED_API, USER_EVENT_REGISTRATION_API } from '../utils/api'
 
 
 export const userSignup = createAsyncThunk('user/signup', async (data, { rejectWithValue }) => {
@@ -53,6 +53,21 @@ export const getUserJoinedEvents = createAsyncThunk('user/getUserJoinedEvents', 
     }
 })
 
+export const getUserCreatedEvents = createAsyncThunk('user/getUserCreatedEvents', async (_, { rejectWithValue }) => {
+    try {
+        const response = await axios.get(USER_CREATED_EVENT_API, {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem('token')}`
+            },
+            withCredentials: true
+        })
+        return response?.data.events
+    } catch (error) {
+        const message = error?.response?.data?.message
+        return rejectWithValue(message)
+    }
+})
+
 export const registerInEvent = createAsyncThunk('user/registerInEvent', async (eventId, { rejectWithValue }) => {
     try {
         const response = await axios.post(USER_EVENT_REGISTRATION_API, { eventId }, {
@@ -67,6 +82,8 @@ export const registerInEvent = createAsyncThunk('user/registerInEvent', async (e
         return rejectWithValue(message)
     }
 })
+
+
 
 const initialState = {
     user: sessionStorage.getItem('user') !== 'undefined' ? JSON.parse(sessionStorage.getItem('user')) : {},
@@ -173,6 +190,18 @@ const userSlice = createSlice({
                 sessionStorage.setItem('eventsJoined', JSON.stringify(state.eventsJoined))
             })
             .addCase(registerInEvent.rejected, (state, { payload }) => {
+                state.status = 'error'
+                state.error = payload
+            })
+            .addCase(getUserCreatedEvents.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(getUserCreatedEvents.fulfilled, (state, { payload }) => {
+                state.status = 'success'
+                state.eventsCreated = Array.isArray(state.eventsCreated) ? [...state.eventsCreated, ...payload] : [...payload]
+                sessionStorage.setItem('eventsCreated', JSON.stringify(state.eventsCreated))
+            })
+            .addCase(getUserCreatedEvents.rejected, (state, { payload }) => {
                 state.status = 'error'
                 state.error = payload
             })
