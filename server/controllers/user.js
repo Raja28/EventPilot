@@ -162,7 +162,7 @@ exports.participateInEvent = async (req, res) => {
 exports.getUserJoinedEvents = async (req, res) => {
     try {
         const userId = req.user._id;
-
+console.log("fetching users joined events for user with id:");
         const user = await User.findById(userId)
             .populate({
                 path: "eventsJoined",
@@ -184,6 +184,46 @@ exports.getUserJoinedEvents = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Internal server error"
+        });
+    }
+};
+
+
+exports.getUserCreatedEvents = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        // Optional: Log who is fetching what
+        console.log(`Fetching created events for user: ${userId}`);
+
+        // Populate the eventsCreated field from the User model
+        const user = await User.findById(userId)
+            .populate({
+                path: 'eventsCreated',
+                populate: {
+                    path: 'participants',
+                    select: 'name email' // Optional: customize what you populate
+                }
+            });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'User created events fetched successfully',
+            events: user.eventsCreated
+        });
+
+    } catch (error) {
+        console.error('Error fetching user created events:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error'
         });
     }
 };
