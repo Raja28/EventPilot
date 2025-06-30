@@ -122,8 +122,8 @@ const userSlice = createSlice({
             .addCase(userLogin.fulfilled, (state, { payload }) => {
                 state.user = payload?.user
                 state.token = payload.token
-                state.eventsCreated = payload?.user?.eventsCreated
-                state.eventsJoined = payload?.user?.eventsJoined
+                state.eventsCreated = payload?.user?.eventsCreated || []
+                state.eventsJoined = payload?.user?.eventsJoined || []
                 sessionStorage.setItem('user', JSON.stringify(payload?.user))
                 sessionStorage.setItem('eventsCreated', JSON.stringify(payload?.user?.eventsCreated))
                 sessionStorage.setItem('eventsJoined', JSON.stringify(payload?.user?.eventsJoined))
@@ -169,7 +169,7 @@ const userSlice = createSlice({
             })
             .addCase(registerInEvent.fulfilled, (state, { payload }) => {
                 state.status = 'success'
-                state.eventsJoined = [...state.eventsJoined, payload]
+                state.eventsJoined = Array.isArray(state.eventsJoined) ? [...state.eventsJoined, payload] : [payload]
                 sessionStorage.setItem('eventsJoined', JSON.stringify(state.eventsJoined))
             })
             .addCase(registerInEvent.rejected, (state, { payload }) => {
