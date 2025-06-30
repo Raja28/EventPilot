@@ -198,7 +198,7 @@ const userSlice = createSlice({
             })
             .addCase(getUserCreatedEvents.fulfilled, (state, { payload }) => {
                 state.status = 'success'
-                state.eventsCreated = Array.isArray(state.eventsCreated) ? [...state.eventsCreated, ...payload] : [...payload]
+                state.eventsCreated = payload
                 sessionStorage.setItem('eventsCreated', JSON.stringify(state.eventsCreated))
             })
             .addCase(getUserCreatedEvents.rejected, (state, { payload }) => {
