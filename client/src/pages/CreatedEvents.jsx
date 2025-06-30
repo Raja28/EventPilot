@@ -38,16 +38,16 @@ export function CreatedEvents() {
       )}
 
       {/* No Events Joined */}
-      {status === "success" && eventsCreated.length === 0 && (
+      {status === "success" && eventsCreated?.length === 0 && (
         <div className="text-gray-600 text-lg text-center my-10">
           You haven't created for any events yet.
         </div>
       )}
 
       {/* Events Grid */}
-      {status === "success" && eventsCreated.length > 0 && (
+      {status === "success" && eventsCreated?.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {eventsCreated.map((event) => (
+          {eventsCreated?.map((event) => (
             <div
               key={event._id}
               className="bg-white rounded-lg shadow-md p-6 border border-gray-200"
