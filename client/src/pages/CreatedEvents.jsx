@@ -1,7 +1,7 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserJoinedEvents } from "../store/userSlice";
+import { getUserCreatedEvents, getUserJoinedEvents } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
 
 export function CreatedEvents() {
@@ -10,7 +10,7 @@ export function CreatedEvents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUserJoinedEvents());
+    dispatch(getUserCreatedEvents());
   }, [dispatch]);
 
   return (
