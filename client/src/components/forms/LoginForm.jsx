@@ -25,7 +25,7 @@ export default function LoginForm() {
                         <input type="email" name="email" id="email"
                             className=" border border-gray-500 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                             placeholder="name@company.com"
-                            required=""
+                            required
                             onChange={handleChange}
                             
                         />
@@ -38,7 +38,7 @@ export default function LoginForm() {
                             id="password"
                             placeholder="******"
                             className="bg-gray-50 border border-gray-500 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            required=""
+                            required
                             onChange={handleChange}
                         />
                     </div>
