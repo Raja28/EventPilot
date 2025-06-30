@@ -12,7 +12,6 @@ export function UserJoinedEvents() {
   useEffect(() => {
     dispatch(getUserJoinedEvents());
   }, [dispatch]);
-  console.log(eventsJoined);
 
   return (
     <div className="w-11/12 mx-auto min-h-screen bg-gray-100 p-6">
@@ -39,27 +38,27 @@ export function UserJoinedEvents() {
       )}
 
       {/* No Events Joined */}
-      {status === "success" && eventsJoined.length === 0 && (
+      {status === "success" && eventsJoined?.length === 0 && (
         <div className="text-gray-600 text-lg text-center my-10">
           You haven't registered for any events yet.
         </div>
       )}
 
       {/* Events Grid */}
-      {status === "success" && eventsJoined.length > 0 && (
+      {status === "success" && eventsJoined?.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {eventsJoined.map((event) => (
+          {eventsJoined?.map((event) => (
             <div
               key={event._id}
               className="bg-white rounded-lg shadow-md p-6 border border-gray-200"
             >
               <h2 className="text-xl font-semibold mb-2">
-                {event.title || "Untitled Event"}
+                {event?.title || "Untitled Event"}
               </h2>
               <p className="text-gray-600 text-sm mb-1">
                 📅{" "}
                 {event.date
-                  ? new Date(event.date).toLocaleDateString(undefined, {
+                  ? new Date(event?.date).toLocaleDateString(undefined, {
                     weekday: "long",
                     year: "numeric",
                     month: "long",
